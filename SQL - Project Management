@@ -1,0 +1,110 @@
+SELECT DISTINCT 
+    P.ProjectID AS ProjectID,
+    TRUNC(R.RequestDate) AS "0_RFP_FROM_CUSTOMER",
+    TRUNC(C.ContractAssignedDate) AS "1_CONTRACTASSIGNED",
+    TRUNC(C.ECMCompletionDate) AS "2_ECMCOMPLETIONDATE",
+    TRUNC(DS4.ActualShippedDateMin) AS "4_SB_FIRST_ACTUALSHIPPEDDATE",
+    TRUNC(D5.ActualShippedDateMax) AS "5_PARTS_ACTUALSHIPPEDDATE",
+    TRUNC(DS6.ActualShippedDateMax) AS "6.2_SB_LAST_ACTUALSHIPPEDDATE",
+    TRUNC(PS.StatusDate) AS "6_RevenueBooked",
+    P.Model AS Model,
+    P.AirlineCode AS AirlineCode,
+    P.AirlineName AS AirlineName,
+    P.RegionName AS RegionName,
+    P.ATA,
+    P.ProjectTitle AS ProjectTitle,
+    C.Product AS Product,
+    TRUNC(P.CustomerRequestedShipDate) AS CustomerRequestedShipDate,
+    TRUNC(DS4.CommitDateMin) AS EarliestCommitDateSB,
+    TRUNC(D5.CommitDateMin) AS EarliestCommitDateParts,
+    TRUNC(D.CommitDateMax) AS LastCommitDate,
+    TRUNC(S.GroupLastModifiedDate) AS MgmtReviewDate,
+    E.TotalFlowProposal AS TotalFlowAtProposal,
+    E.TotalFlowECM AS TotalFlowAtECM,
+    E.ActualSchedule AS ActualSchedule
+FROM 
+    Data.Request R
+    LEFT JOIN Data.Project P ON R.RequestID = P.RequestID
+    LEFT JOIN Data.Contract C ON C.ProjectID = P.ProjectID
+    LEFT JOIN 
+    (
+        SELECT 
+            ProjectID, 
+            MIN(CommitDate) AS CommitDateMin, 
+            MAX(CommitDate) AS CommitDateMax,
+            MIN(ActualShippedDate) AS ActualShippedDateMin, 
+            MAX(ActualShippedDate) AS ActualShippedDateMax
+        FROM Data.Deliverable
+        WHERE DeliverableType IN (
+            'Type1', 'Type2', 'Type3', 'Type4', 'Type5'
+        )
+        AND Quantity <> 0
+        GROUP BY ProjectID
+    ) D ON D.ProjectID = P.ProjectID
+    LEFT JOIN 
+    (
+        SELECT 
+            ProjectID, 
+            MIN(CommitDate) AS CommitDateMin, 
+            MAX(CommitDate) AS CommitDateMax,
+            MIN(ActualShippedDate) AS ActualShippedDateMin, 
+            MAX(ActualShippedDate) AS ActualShippedDateMax
+        FROM Data.Deliverable
+        WHERE DeliverableType = 'Type6'
+        AND Quantity <> 0
+        GROUP BY ProjectID
+    ) DS4 ON DS4.ProjectID = P.ProjectID
+    LEFT JOIN 
+    (
+        SELECT 
+            ProjectID, 
+            MIN(CommitDate) AS CommitDateMin, 
+            MAX(CommitDate) AS CommitDateMax,
+            MIN(ActualShippedDate) AS ActualShippedDateMin, 
+            MAX(ActualShippedDate) AS ActualShippedDateMax
+        FROM Data.Deliverable
+        WHERE DeliverableType IN ('Type7', 'Type8')
+        AND Quantity <> 0
+        GROUP BY ProjectID
+    ) DS6 ON DS6.ProjectID = P.ProjectID
+    LEFT JOIN 
+    (
+        SELECT 
+            ProjectID, 
+            MIN(CommitDate) AS CommitDateMin, 
+            MAX(CommitDate) AS CommitDateMax,
+            MIN(ActualShippedDate) AS ActualShippedDateMin, 
+            MAX(ActualShippedDate) AS ActualShippedDateMax
+        FROM Data.Deliverable
+        WHERE DeliverableType IN ('Type9', 'Type10')
+        AND Quantity <> 0
+        GROUP BY ProjectID
+    ) D5 ON D5.ProjectID = P.ProjectID
+    LEFT JOIN Data.ProjectStatus PS ON PS.ProjectID = P.ProjectID AND PS.StatusDescription = 'Revenue Booked'
+    LEFT JOIN 
+    (
+        SELECT 
+            SA.ProjectID, 
+            SA.GroupName AS GroupName,
+            SA.Status AS GroupStatus,
+            SA.LastModifiedDate AS GroupLastModifiedDate
+        FROM Data.Routing SA
+        LEFT JOIN 
+        (
+            SELECT 
+                ProjectID, 
+                MAX(LastModifiedDate) AS LastModified
+            FROM Data.Routing
+            WHERE Status = 'Complete' AND GroupName = 'Mgmt Review'
+            GROUP BY ProjectID
+        ) SM ON SM.ProjectID = SA.ProjectID 
+        WHERE SM.LastModified = SA.LastModifiedDate
+    ) S ON S.ProjectID = P.ProjectID
+    LEFT JOIN Data.ECM E ON E.ProjectID = P.ProjectID
+WHERE 
+    (C.ProductLineName = 'Modification Services' OR
+    C.Product IN ('Connectivity', 'Interiors', 'Avionics', 'Systems'))
+    AND C.ContractAssignedDate IS NOT NULL
+ORDER BY 
+    R.RequestDate, 
+    C.ECMCompletionDate;
