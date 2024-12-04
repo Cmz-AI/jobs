@@ -1,0 +1,84 @@
+import pyodbc
+import pandas as pd
+from datetime import date
+
+today = date.today()
+
+cnxn = pyodbc.connect(r'Driver=SQL Server;Server= REDACTED;Database=REDACTED;Trusted_Connection=yes;')
+cursor = cnxn.cursor()
+
+SQL = ("""SET NOCOUNT ON;
+
+SELECT 
+    CONCAT(emp.LastName, ', ', emp.FirstName, ' ', emp.MiddleInitial) AS FullName,
+    emp.[EmployeeID],
+    emp.[JobCode],
+    emp.DivisionCode,
+    emp.City,
+    emp.State,
+    emp.Country,
+    CONCAT(mgr.LastName, ', ', mgr.FirstName, ' ', mgr.MiddleInitial) AS ManagerName,
+    CONCAT(ldr.LastName, ', ', ldr.FirstName, ' ', ldr.MiddleInitial) AS SeniorLeader,
+    skl.[DepartmentName],
+    skl.[RoleCategory] AS Roles,
+    skl.[SkillName],
+    skl.[SkillType],
+    skl.[Value] AS Assessment,
+    skl.[SkillLevel] AS SkillLevelDescription
+FROM HR.[Employee] emp
+LEFT JOIN HR.[Employee] mgr ON emp.ManagerID = mgr.EmployeeID
+LEFT JOIN HR.[Employee] ldr ON mgr.ManagerID = ldr.EmployeeID
+LEFT JOIN Skills.[SkillDetails] skl ON emp.EmployeeID = skl.EmployeeID
+WHERE
+    emp.DepartmentDescription NOT LIKE '%Terminated%'
+    AND emp.DepartmentID NOT LIKE '%TERM%'
+    AND emp.ManagerID <> 0
+    AND skl.IsActive = 1
+    AND (
+        skl.[DepartmentName] LIKE '%Engineering%' 
+        OR skl.[DepartmentName] LIKE '%Operations%'
+        OR skl.[DepartmentName] LIKE '%Quality%'
+        OR skl.[DepartmentName] LIKE '%Manufacturing%'
+        OR skl.[DepartmentName] LIKE '%Proposals%'
+        OR skl.[DepartmentName] LIKE '%Support%'
+        OR skl.[DepartmentName] LIKE '%Research%'
+        OR skl.[DepartmentName] LIKE '%Development%'
+    )
+ORDER BY skl.DepartmentName;""")
+
+df = pd.read_sql(SQL, cnxn)
+
+# Inserting the date the data was pulled. This is for historical data used to in tableau 
+df.insert(0, 'Pull Date', today)
+
+# SUMMATION: Counting College Name Appeareance. Used to determine amount of unique inputs in a college
+df.groupby(['DepartmentName'])['DepartmentName'].agg('count').to_frame('c').reset_index
+
+# Counting College Name Appeareance. Used to determine amount of unique inputs in a college
+df['Counts'] = df.groupby(['DepartmentName'])['DepartmentName'].transform('count')
+df.rename(columns={'Counts': 'CollegeNameCountDepartmentName'}, inplace=True)
+
+# SUMMATION: Counting Roles Name Appeareance. Used to determine amount of unique inputs in a role
+df.groupby(['Roles'])['Roles'].agg('count').to_frame('c').reset_index
+
+#Counting Roles Name Appeareance. Used to determine amount of unique inputs in a role
+df['Counts'] = df.groupby(['Roles'])['Roles'].transform('count')
+df.rename(columns={'Counts': 'RoleCount'}, inplace=True)
+
+# SUMMATION: Counting Skills per Role Name Appeareance. Used to determine amount of unique inputs of Skills in a role
+df.groupby(['SkillName'])['Roles'].agg('count').to_frame('c').reset_index
+
+# Counting Skills per Role Name Appeareance. Used to determine amount of unique inputs of Skills in a role
+df['Counts'] = df.groupby(['SkillName'])['Roles'].transform('count')
+df.rename(columns={'Counts': 'SkillinRole'}, inplace=True)
+
+df['Counts'] = df[df['Assessment'] >= 5].groupby('SkillName')['Roles'].transform('count')
+df.rename(columns={'Counts': 'IntermediateSkillCount'}, inplace=True)
+
+# Percentage of Employees with Assessment 5 or above for a skill in a role.
+df['IntermediatePercentage'] = df['SkillinRole']/df['IntermediateSkillCount']
+
+df['nunique'] = df.groupby(['Roles'])["BEMS_ID"].transform('nunique')
+df.rename(columns={'nunique': 'CollegeRoleCount'}, inplace=True)
+
+df.to_excel("//REDACTED// REDACTED.xlsx","CSU Skills",index=False)
