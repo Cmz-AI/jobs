@@ -1,0 +1,38 @@
+SET NOCOUNT ON;
+
+SELECT 
+    CONCAT(emp.LastName, ', ', emp.FirstName, ' ', emp.MiddleInitial) AS FullName,
+    emp.[EmployeeID],
+    emp.[JobCode],
+    emp.DivisionCode,
+    emp.City,
+    emp.State,
+    emp.Country,
+    CONCAT(mgr.LastName, ', ', mgr.FirstName, ' ', mgr.MiddleInitial) AS ManagerName,
+    CONCAT(ldr.LastName, ', ', ldr.FirstName, ' ', ldr.MiddleInitial) AS SeniorLeader,
+    skl.[DepartmentName],
+    skl.[RoleCategory] AS Roles,
+    skl.[SkillName],
+    skl.[SkillType],
+    skl.[Value] AS Assessment,
+    skl.[SkillLevel] AS SkillLevelDescription
+FROM HR.[Employee] emp
+LEFT JOIN HR.[Employee] mgr ON emp.ManagerID = mgr.EmployeeID
+LEFT JOIN HR.[Employee] ldr ON mgr.ManagerID = ldr.EmployeeID
+LEFT JOIN Skills.[SkillDetails] skl ON emp.EmployeeID = skl.EmployeeID
+WHERE
+    emp.DepartmentDescription NOT LIKE '%Terminated%'
+    AND emp.DepartmentID NOT LIKE '%TERM%'
+    AND emp.ManagerID <> 0
+    AND skl.IsActive = 1
+    AND (
+        skl.[DepartmentName] LIKE '%Engineering%' 
+        OR skl.[DepartmentName] LIKE '%Operations%'
+        OR skl.[DepartmentName] LIKE '%Quality%'
+        OR skl.[DepartmentName] LIKE '%Manufacturing%'
+        OR skl.[DepartmentName] LIKE '%Proposals%'
+        OR skl.[DepartmentName] LIKE '%Support%'
+        OR skl.[DepartmentName] LIKE '%Research%'
+        OR skl.[DepartmentName] LIKE '%Development%'
+    )
+ORDER BY skl.DepartmentName;
