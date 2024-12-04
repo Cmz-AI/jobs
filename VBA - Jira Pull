@@ -1,0 +1,184 @@
+Sub CopyJira()
+
+Application.ScreenUpdating = False
+
+    'Set Variable
+    Dim jr As Workbook
+
+    'Path to Jira Download
+    Set jr = Workbooks.Open("C:\Users\ap369e\Downloads\PE5519-JIRA EXAMPLE.csv")
+    
+    'Copying to our Workbook
+    With ThisWorkbook
+        
+        jr.Worksheets(1).Copy After:=.Worksheets(.Worksheets.Count)
+    
+    End With
+    
+    'Closing
+    jr.Close savechanges:=False
+
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub vba_delete_sheet()
+
+Application.DisplayAlerts = False
+
+    Sheets("Sheet1").Delete
+    
+Application.DisplayAlerts = True
+
+End Sub
+
+Sub Clean()
+    
+Application.ScreenUpdating = False
+
+LastRow = Range("X" & Rows.Count).End(xlUp).Row
+    
+    For i = 2 To LastRow Step 1
+    
+        If Len(Cells(i, 24)) < 13 Then
+        
+            Cells(i, 24).ClearContents
+        
+        End If
+        
+    Next i
+    
+Application.ScreenUpdating = True
+
+
+End Sub
+
+Sub DeleteRowsWithBlankCellsInX()
+
+Application.ScreenUpdating = False
+    
+    Worksheets("PE5519-JIRA EXAMPLE").Range("X2:X1000").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub Format()
+    
+Application.ScreenUpdating = False
+
+Dim ws As Worksheet
+Dim wb As Workbook
+
+Set wb = ThisWorkbook
+Set ws = wb.Sheets("PE5519-JIRA EXAMPLE")
+    
+LastRow = Range("B" & Rows.Count).End(xlUp).Row
+    
+    
+    
+    Range("X:X").Copy Range("B:B")
+    Cells(1, 2) = "Activity ID"
+    
+    Range("AB:AB").Copy Range("C:C")
+    Cells(1, 3) = "Activity Title"
+
+    For Each cell In ws.Range("B2:B136").Cells
+        
+        cell.Offset(0, -1).Value = Left(cell.Value, 6)
+    
+    Next cell
+    
+    ws.Columns(4).ClearContents
+    ws.Columns(5).ClearContents
+    
+    Range("F:F").Copy Range("S:S")
+    Range("F:F").Copy Range("T:T")
+    
+    For i = 2 To LastRow Step 1
+    
+        If Cells(i, 19) = "Done" Then
+        
+            Cells(i, 19) = Date
+            Cells(i, 20) = Date
+        Else
+        
+            Cells(i, 19).ClearContents
+            Cells(i, 20).ClearContents
+            
+        End If
+        
+    Next i
+        
+    
+    
+    Range("O:O").Copy Range("Q:Q")
+    Range("US:US").Copy Range("R:R")
+    
+    ws.Columns(6).ClearContents
+    ws.Columns(7).ClearContents
+    ws.Columns(8).ClearContents
+    ws.Columns(9).ClearContents
+    ws.Columns(10).ClearContents
+    ws.Columns(11).ClearContents
+    ws.Columns(12).ClearContents
+    ws.Columns(13).ClearContents
+    ws.Columns(14).ClearContents
+    ws.Columns(15).ClearContents
+    ws.Columns(17).ClearContents
+    
+Application.ScreenUpdating = True
+    
+End Sub
+
+Sub DeleteCol()
+
+Application.ScreenUpdating = False
+
+    Columns("U:UZ").EntireColumn.Delete
+    
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub ColNames()
+
+Application.ScreenUpdating = False
+    
+Dim ws As Worksheet
+Dim wb As Workbook
+
+Set wb = ThisWorkbook
+Set ws = wb.Sheets("PE5519-JIRA EXAMPLE")
+
+    Cells(1, 1) = "Project"
+    Cells(1, 2) = "Act ID"
+    Cells(1, 3) = "Activity Title"
+    Cells(1, 4) = ""
+    Cells(1, 5) = ""
+    Cells(1, 6) = ""
+    Cells(1, 7) = ""
+    Cells(1, 8) = ""
+    Cells(1, 9) = "Base Start"
+    Cells(1, 10) = "Base Finish"
+    Cells(1, 11) = "Activity Class"
+    Cells(1, 12) = "Start"
+    Cells(1, 13) = "Finish"
+    Cells(1, 14) = "ECD"
+    Cells(1, 15) = "%Comp"
+    Cells(1, 16) = "Focal/Lead"
+    Cells(1, 17) = "Resp Engr"
+    Cells(1, 18) = "Comments"
+    Cells(1, 19) = "Eng Est Start Date"
+    Cells(1, 20) = "Eng Est Finish Date"
+    Cells(1, 21) = "Service Bulletin"
+    Cells(1, 22) = "Cert Plan"
+    
+    ws.Range("A1,B1,C1").Interior.ColorIndex = 44
+    ws.Range("D1,E1,F1,G1,H1").Interior.ColorIndex = 27
+    ws.Range("I1,J1,K1,L1,M1,N1,O1,P1,Q1,R1,S1,T1,U1,V1").Interior.ColorIndex = 44
+    Worksheets("PE5519-JIRA EXAMPLE").Range("A1:V1").Font.Bold = True
+    
+Application.ScreenUpdating = True
+
+End Sub
