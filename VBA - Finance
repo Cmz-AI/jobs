@@ -1,0 +1,3392 @@
+Attribute VB_Name = "Module2"
+Sub Faster()
+
+Application.ScreenUpdating = False
+Application.Calculation = xlCalculationManual
+Application.EnableEvents = False
+Application.DisplayStatusBar = False
+
+End Sub
+
+Sub Backup()
+
+Application.DisplayAlerts = False
+
+ActiveWorkbook.SaveAs Filename:="C:\Users\ap369e\Desktop\2023 Business Plan BGS_C Backup.xlsm"
+
+Application.DisplayAlerts = True
+
+End Sub
+Sub Year23()
+
+Dim x As Long
+Dim iAmount() As Variant
+Dim iNum As Integer
+Dim iAmount2() As Variant
+Dim iNum2 As Integer
+Dim ba As Workbook
+Dim bp As Workbook
+
+'Set Workbooks
+Set ba = Workbooks("Pivot_BGS-C_Source_Business Plan Actuals.xlsx")
+Set bp = Workbooks("2023 Business Plan BGS_C.xlsm")
+
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("YEAR")
+        .PivotItems("2023").Visible = True
+        .PivotItems("2022").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("JAN").Visible = True
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+'************************************************JAN23***********************************************************************************************************
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+    
+'************************************************FEB23***********************************************************************************************************
+
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("FEB").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'************************************************Mar23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("MAR").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'************************************************Apr23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("APR").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+        
+'************************************************MAY23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("MAY").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'************************************************JUN23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("JUN").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'************************************************JUL23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("JUL").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'************************************************AUG23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("AUG").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+    
+'************************************************SEP23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("SEP").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'************************************************OCT23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("OCT").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'************************************************NOV23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("NOV").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("DEC").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+    
+'************************************************DEC23***********************************************************************************************************
+
+'Prepare Approriate Data by setting Pivot
+ba.Sheets("Business_Plan-by program").Activate
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("DEC").Visible = True
+        .PivotItems("JAN").Visible = False
+        .PivotItems("FEB").Visible = False
+        .PivotItems("MAR").Visible = False
+        .PivotItems("APR").Visible = False
+        .PivotItems("MAY").Visible = False
+        .PivotItems("JUL").Visible = False
+        .PivotItems("AUG").Visible = False
+        .PivotItems("SEP").Visible = False
+        .PivotItems("OCT").Visible = False
+        .PivotItems("NOV").Visible = False
+        .PivotItems("JUN").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+
+'Array Creation
+iAmount = Range("A13:AL43")
+
+
+'MOD APS
+bp.Sheets("Mods_APS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 2)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MODS AVIONICS
+bp.Sheets("Mods_Avionics__Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 4)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+'MODS Connectivity
+bp.Sheets("Mods_Connectivity_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 6)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Interiors
+bp.Sheets("Mods_Interiors_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 95
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 8)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD Others
+bp.Sheets("ModOther_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 10)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'MOD 737BCF
+
+bp.Sheets("737BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 12)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767BCF
+    
+bp.Sheets("767BCF_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 14)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 747
+    
+bp.Sheets("747_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 16)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 767
+    
+bp.Sheets("767_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 18)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'MOD 787
+    
+bp.Sheets("787_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 20)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+
+'JAN23 777
+
+bp.Sheets("777_777x_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 24)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+'BGS OTHER
+
+bp.Sheets("BGS Other_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 26)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+    
+End Sub
+
+Sub Others()
+
+Dim x As Long
+Dim iAmount() As Variant
+Dim iNum As Integer
+Dim iAmount2() As Variant
+Dim iNum2 As Integer
+Dim ba As Workbook
+Dim bp As Workbook
+
+Set ba = Workbooks("Pivot_BGS-C_Source_Business Plan Actuals.xlsx")
+Set bp = Workbooks("2023 Business Plan BGS_C.xlsm")
+
+'********************************************************************IP CS**********************************************************************************************
+
+ba.Sheets("Business_Plan-by program").Activate
+
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("YEAR")
+        .PivotItems("2023").Visible = True
+        .PivotItems("2022").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("BUSINESS PLAN")
+        
+        .PivotItems("IP CS").Visible = True
+        .PivotItems("MODS AP&S").Visible = False
+        .PivotItems("MODS AVIONICS").Visible = False
+        .PivotItems("MODS CONNECTIVITY").Visible = False
+        .PivotItems("MODS INTERIORS").Visible = False
+        .PivotItems("MOD OTHER").Visible = False
+        .PivotItems("BCF737").Visible = False
+        .PivotItems("BCF767").Visible = False
+        .PivotItems("747").Visible = False
+        .PivotItems("767").Visible = False
+        .PivotItems("787").Visible = False
+        .PivotItems("").Visible = False
+        .PivotItems("737NG / MAX").Visible = False
+        .PivotItems("777 / 777X").Visible = False
+        .PivotItems("BGS OTHER").Visible = False
+        .PivotItems("BGS SUB-COMPONENTS").Visible = False
+        .PivotItems("MODS BAGA").Visible = False
+        .PivotItems("OFFLOADS & PD").Visible = False
+        .PivotItems("OOP CS").Visible = False
+        .PivotItems("OVERHEAD").Visible = False
+        .PivotItems("PARTS DESIGN").Visible = False
+        .PivotItems("(blank)").Visible = False
+        .PivotItems("SALES SUPPORT").Visible = False
+    End With
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("JAN").Visible = True
+        .PivotItems("FEB").Visible = True
+        .PivotItems("MAR").Visible = True
+        .PivotItems("APR").Visible = True
+        .PivotItems("MAY").Visible = True
+        .PivotItems("JUN").Visible = True
+        .PivotItems("JUL").Visible = True
+        .PivotItems("AUG").Visible = True
+        .PivotItems("SEP").Visible = True
+        .PivotItems("OCT").Visible = True
+        .PivotItems("NOV").Visible = True
+        .PivotItems("DEC").Visible = True
+        .PivotItems("(blank)").Visible = False
+    End With
+
+iAmount = Range("A11:N30")
+
+bp.Sheets("IP_CS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 2)
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 3)
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 4)
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 5)
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 6)
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 7)
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 8)
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 9)
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 10)
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 11)
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 12)
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 13)
+            
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+    
+'********************************************************************IP CS**********************************************************************************************
+
+ba.Sheets("Business_Plan-by program").Activate
+
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("YEAR")
+        .PivotItems("2023").Visible = True
+        .PivotItems("2022").Visible = False
+        .PivotItems("(blank)").Visible = False
+    End With
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("BUSINESS PLAN")
+        
+        .PivotItems("OOP CS").Visible = True
+        .PivotItems("IP CS").Visible = False
+        .PivotItems("MODS AP&S").Visible = False
+        .PivotItems("MODS AVIONICS").Visible = False
+        .PivotItems("MODS CONNECTIVITY").Visible = False
+        .PivotItems("MODS INTERIORS").Visible = False
+        .PivotItems("MOD OTHER").Visible = False
+        .PivotItems("BCF737").Visible = False
+        .PivotItems("BCF767").Visible = False
+        .PivotItems("747").Visible = False
+        .PivotItems("767").Visible = False
+        .PivotItems("787").Visible = False
+        .PivotItems("").Visible = False
+        .PivotItems("737NG / MAX").Visible = False
+        .PivotItems("777 / 777X").Visible = False
+        .PivotItems("BGS OTHER").Visible = False
+        .PivotItems("BGS SUB-COMPONENTS").Visible = False
+        .PivotItems("MODS BAGA").Visible = False
+        .PivotItems("OFFLOADS & PD").Visible = False
+        .PivotItems("OVERHEAD").Visible = False
+        .PivotItems("PARTS DESIGN").Visible = False
+        .PivotItems("(blank)").Visible = False
+        .PivotItems("SALES SUPPORT").Visible = False
+    End With
+    
+    With ActiveSheet.PivotTables("PivotTable4").PivotFields("Month")
+        .PivotItems("JAN").Visible = True
+        .PivotItems("FEB").Visible = True
+        .PivotItems("MAR").Visible = True
+        .PivotItems("APR").Visible = True
+        .PivotItems("MAY").Visible = True
+        .PivotItems("JUN").Visible = True
+        .PivotItems("JUL").Visible = True
+        .PivotItems("AUG").Visible = True
+        .PivotItems("SEP").Visible = True
+        .PivotItems("OCT").Visible = True
+        .PivotItems("NOV").Visible = True
+        .PivotItems("DEC").Visible = True
+        .PivotItems("(blank)").Visible = False
+    End With
+
+iAmount = Range("A11:N30")
+
+bp.Sheets("OOP_CS_Input").Activate
+
+    For iNum = 1 To UBound(iAmount, 1)
+        
+        For x = 58 To 87
+        
+            If Cells(x, 2).Value = iAmount(iNum, 1) Then
+            
+                Cells(x, 2).Offset(0, 3).Value = iAmount(iNum, 2)
+                Cells(x, 2).Offset(0, 4).Value = iAmount(iNum, 3)
+                Cells(x, 2).Offset(0, 5).Value = iAmount(iNum, 4)
+                Cells(x, 2).Offset(0, 6).Value = iAmount(iNum, 5)
+                Cells(x, 2).Offset(0, 7).Value = iAmount(iNum, 6)
+                Cells(x, 2).Offset(0, 8).Value = iAmount(iNum, 7)
+                Cells(x, 2).Offset(0, 9).Value = iAmount(iNum, 8)
+                Cells(x, 2).Offset(0, 10).Value = iAmount(iNum, 9)
+                Cells(x, 2).Offset(0, 11).Value = iAmount(iNum, 10)
+                Cells(x, 2).Offset(0, 12).Value = iAmount(iNum, 11)
+                Cells(x, 2).Offset(0, 13).Value = iAmount(iNum, 12)
+                Cells(x, 2).Offset(0, 14).Value = iAmount(iNum, 13)
+                
+            Else
+            
+            End If
+            
+        Next x
+    
+    Next iNum
+
+End Sub
