@@ -1,0 +1,45 @@
+import tableauserverclient as TSC
+import pandas as pd
+import io
+
+#Tableau Server
+server_url = 'XXXX'
+
+#Token name/secret
+token_name = 'xxx'
+token_secret = 'xxx'
+
+#Token Authentication
+tableau_auth = TSC.PersonalAccessTokenAuth(token_name, token_secret, site_id)
+
+# Specifying workbook/view name
+project_name = "BGS Mods LMP"  # Folder (project) name
+workbook_name = ""
+view_name = ""  # The view within the workbook you want to extract data 
+
+parent_project_id = "Performance Metrics"
+
+# Specify the workbook ID you want to get views from
+workbook_id ='xxx'
+
+with server.auth.sign_in(tableau_auth):
+    # Get workbook by ID
+    workbook_item = server.workbooks.get_by_id(workbook_id)
+
+    # Populate workbook with views
+    server.workbooks.populate_views(workbook_item)
+
+    # All views in workbook
+    for view in workbook_item.views:
+        print(f"View Name: {view.name}, View ID: {view.id}")
+
+with server.auth.sign_in(tableau_auth):
+    # Get the view by its ID
+
+  view_id = ''
+  view_item = server.views.get_by_id('')
+
+    # Download the CSV data to an in-memory string buffer
+    csv_data = server.views.populate_csv(view_item)
+
+    print(csv_data)
