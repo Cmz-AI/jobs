@@ -1,0 +1,1045 @@
+Sub NoScreenUpdate()
+
+Application.ScreenUpdating = False
+
+End Sub
+
+Sub Unfilter()
+
+    'Unfilter
+ 
+ If ThisWorkbook.Sheets("Visboard").AutoFilterMode Then
+     
+     ThisWorkbook.Sheets("Visboard").AutoFilterMode = False
+  
+  End If
+
+End Sub
+
+Sub SavePrep()
+    
+'Turn off prompts/set variables
+Application.DisplayAlerts = False
+Dim wb As Workbook
+Dim FName As String
+
+FName = ThisWorkbook.Name
+
+    ActiveWorkbook.SaveAs Filename:=FName
+    
+
+
+
+End Sub
+
+Sub CutInsertPreBob()
+    
+Dim header As String
+Dim col As Range
+
+'Set Header
+header = "Remarketing"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+    
+'Set Header
+header = "SB Type"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+'Set Header
+
+header = "Cause Code"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "Cust Code"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "PID"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "Full Kit (Yes/NO)"
+
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "MMD Complete (YES/NO)"
+
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+'Set Header
+header = "In Draft"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+    
+'Set Header
+header = "Draft Complete"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+'Set Header
+
+header = "In Berst"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "ELA Coordsheet"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "Mon Status (HF = Held For)"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+header = "Thurs Status (HF = Held for)"
+
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("AR1").Insert Shift:=xlDown
+    
+    End If
+
+    
+End Sub
+
+Sub CopyLeanRep()
+    
+Dim LastRow As Long
+
+    'Set Variable
+    Dim lr
+    
+
+    'Path to BobCAT Download
+    Set lr = Workbooks.Open("\\SW\data\BGS_SBE_CORE\3 Weekly VISBOARD REPORT\1 Temp_Weekend\Macro Needed Files\generateadhocreport.xls")
+    
+    'Copying to our Workbook
+    With ThisWorkbook
+        
+        lr.Worksheets(1).Copy After:=.Worksheets(.Worksheets.Count)
+    
+    End With
+    
+    'Closing
+    lr.Close savechanges:=False
+    
+    'Delete first 6 rows
+    ThisWorkbook.Sheets("generateadhocreport").Rows("1:6").Delete
+    
+    'Find Last row of data
+    LastRow = ThisWorkbook.Sheets("generateadhocreport").Range("E" & Rows.Count).End(xlUp).Row
+    
+    'Sort column P in BOBCat
+    
+    Range("A2:U" & LastRow).Sort key1:=Range("P2:P" & LastRow), _
+    order1:=xlAscending, header:=xlNo
+    
+    'Copy data to visboard
+    ThisWorkbook.Sheets("generateadhocreport").Range("A2:U" & LastRow).Copy
+    ThisWorkbook.Sheets("Visboard").Range("D2").PasteSpecial Paste:=xlPasteValues
+        
+    'Find Last row of data
+    LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    'Copy Format so it matches
+    ThisWorkbook.Sheets("Visboard").Range("A2:AQ2").Copy
+    ThisWorkbook.Sheets("Visboard").Range("A2:AQ" & LastRow).PasteSpecial xlPasteFormats
+    
+End Sub
+
+Sub DeleteBOBCat()
+
+    ThisWorkbook.Sheets("generateadhocreport").Delete
+
+End Sub
+
+Sub DeleteDups()
+
+Dim x As Long
+Dim LastRow As Long
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("D" & Rows.Count).End(xlUp).Row
+
+
+    With ThisWorkbook.Sheets("Visboard")
+        
+        .Range("F2:F" & LastRow).RemoveDuplicates Columns:=1, header:=xlYes
+        
+    End With
+    
+        
+End Sub
+
+Sub CutPastePostBob()
+    
+Dim header As String
+Dim col As Range
+
+
+header = "MMD Complete (YES/NO)"
+
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+
+
+'Set Header
+header = "Full Kit (Yes/NO)"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+    
+'Set Header
+header = "PID"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+
+'Set Header
+
+header = "Cust Code"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+
+header = "Cause Code"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+
+header = "SB Type"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+
+header = "Remarketing"
+
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("H1").Insert Shift:=xlRight
+    
+    End If
+    
+
+'Set Header
+header = "Thurs Status (HF = Held for)"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("Y1").Insert Shift:=xlRight
+    
+    End If
+    
+'Set Header
+header = "Mon Status (HF = Held For)"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("Y1").Insert Shift:=xlRight
+    
+    End If
+'Set Header
+
+header = "ELA Coordsheet"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("Y1").Insert Shift:=xlRight
+    
+    End If
+
+header = "In Berst"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("Y1").Insert Shift:=xlRight
+    
+    End If
+
+header = "Draft Complete"
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("Y1").Insert Shift:=xlRight
+    
+    End If
+
+header = "In Draft"
+
+
+'Set the column
+
+Set col = ThisWorkbook.Sheets("Visboard").Rows(1).Find(header, LookIn:=xlValues, lookat:=xlWhole).EntireColumn
+
+    If Not col Is Nothing Then
+    
+        col.Cut
+        ThisWorkbook.Sheets("Visboard").Range("Y1").Insert Shift:=xlRight
+    Else
+    
+    End If
+
+    
+End Sub
+
+Sub DeleteBlanks()
+
+Dim x As Long
+Dim LastRow As Long
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("D" & Rows.Count).End(xlUp).Row
+
+    On Error Resume Next
+    
+    ThisWorkbook.Sheets("Visboard").Range("AF2:AF" & LastRow).SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+    On Error GoTo 0
+    
+    On Error Resume Next
+    
+    ThisWorkbook.Sheets("Visboard").Range("F2:F" & LastRow).SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+    On Error GoTo 0
+    
+End Sub
+
+Sub PID()
+
+Dim x As Long
+Dim LastRow As Long
+
+Sheets("Visboard").Activate
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    Sheets("Visboard").Activate
+    For x = 2 To LastRow
+    
+        Sheets("Visboard").Range("L" & x).Value = "1" & Range("O" & x).Value
+        Sheets("Visboard").Range("L" & x).Value = Range("L" & x).Value
+    
+    Next x
+    
+    ThisWorkbook.Sheets("Visboard").Range("L:L").Replace "-", "", xlPart
+    ThisWorkbook.Sheets("Visboard").Range("L2:L" & LastRow).Cells.FormatConditions.Delete
+    
+End Sub
+
+Sub ColorCodeCommitCurrentCompStatus()
+
+Dim x As Long
+Dim LastRow As Long
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    ThisWorkbook.Sheets("Visboard").Columns(31).Interior.Color = xlNone
+    ThisWorkbook.Sheets("Visboard").Columns(32).Interior.Color = xlNone
+    
+    For x = 2 To LastRow
+    
+        If ThisWorkbook.Sheets("Visboard").Range("AF" & x) < Date - Weekday(Date, vbFriday) Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AE" & x).Interior.Color = 13224447
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Interior.Color = 13224447
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Offset(0, 8) = "Late"
+        Else
+        
+        End If
+        
+    Next x
+    
+    
+    For x = 2 To LastRow
+    
+        If ThisWorkbook.Sheets("Visboard").Range("AF" & x) >= Date - Weekday(Date, vbFriday) And ThisWorkbook.Sheets("Visboard").Range("AF" & x) <= Date + 7 - Weekday(Date, vbFriday) Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AE" & x).Interior.Color = 49407
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Interior.Color = 49407
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Offset(0, 8) = "Current Week"
+        Else
+        
+        End If
+        
+    Next x
+    
+    
+    For x = 2 To LastRow
+    
+        If ThisWorkbook.Sheets("Visboard").Range("AF" & x) >= Date + 8 - Weekday(Date, vbFriday) And ThisWorkbook.Sheets("Visboard").Range("AF" & x) <= Date + 21 - Weekday(Date, vbFriday) Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AE" & x).Interior.Color = 15773696
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Interior.Color = 15773696
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Offset(0, 8) = "Next 2 Weeks"
+        Else
+        
+        End If
+        
+    Next x
+    
+    
+End Sub
+
+Sub Formulas()
+
+Dim x As Long
+Dim LastRow As Long
+Dim ws As Worksheet
+    
+    
+'Find the last row
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+
+ThisWorkbook.Sheets("Visboard").Range("I2:I" & LastRow).ClearContents
+ThisWorkbook.Sheets("Visboard").Range("M2:M" & LastRow).ClearContents
+ThisWorkbook.Sheets("Visboard").Range("N2:N" & LastRow).ClearContents
+ThisWorkbook.Sheets("Visboard").Range("AB2:AB" & LastRow).ClearContents
+ThisWorkbook.Sheets("Visboard").Range("AC2:AC" & LastRow).ClearContents
+ThisWorkbook.Sheets("Visboard").Range("AD2:AD" & LastRow).ClearContents
+ThisWorkbook.Sheets("Visboard").Range("AL2:AL" & LastRow).ClearContents
+
+
+
+    'Paste and Drag down formula for Mon Status (HF = Held For)
+    ThisWorkbook.Sheets("Visboard").Range("AC2").Formula = "=IFERROR(VLOOKUP($F2,'[PriorWeek_Working copy.xlsm]Visboard'!$F:$AL,25,FALSE),""NEW"")"
+    'Range("AC2").Select
+    'Selection.AutoFill Destination:=Range("AC2:AC" & LastRow), Type:=xlFillDefault
+    
+    'Paste and Drag down formula for Thurs Status (HF = Held For)
+    ThisWorkbook.Sheets("Visboard").Range("AD2").Value = ""
+    'Range("AD2").Select
+    'Selection.AutoFill Destination:=Range("AD2:AD" & LastRow), Type:=xlFillDefault
+    
+    'Paste and Drag down formula for SB Type
+    ThisWorkbook.Sheets("Visboard").Range("I2").Formula = "=IFERROR(VLOOKUP($F2,'[PriorWeek_Working copy.xlsm]Visboard'!$F:$AL,4,FALSE),"""")"
+    'Range("I2").Select
+    'Selection.AutoFill Destination:=Range("I2:I" & LastRow), Type:=xlFillDefault
+    
+    'Paste and Drag down formula for Full Kit (Yes/No)
+    ThisWorkbook.Sheets("Visboard").Range("M2").Formula = "=IFERROR(VLOOKUP($F2,'[PriorWeek_Working copy.xlsm]Visboard'!$F:$AL,8,FALSE),"""")"
+    'Range("M2").Select
+    'Selection.AutoFill Destination:=Range("M2:M" & LastRow), Type:=xlFillDefault
+    
+    'Paste and Drag down formula for MMD Complete (Yes/No)
+    ThisWorkbook.Sheets("Visboard").Range("N2").Formula = "=IFERROR(VLOOKUP($F2,'[PriorWeek_Working copy.xlsm]Visboard'!$F:$AL,9,FALSE),""NO"")"
+    'Range("N2").Select
+    'Selection.AutoFill Destination:=Range("N2:N" & LastRow), Type:=xlFillDefault
+    
+    'Paste and Drag down formula for ELA Coordsheet
+    ThisWorkbook.Sheets("Visboard").Range("AB2").Formula = "=IFERROR(VLOOKUP($F2,'[PriorWeek_Working copy.xlsm]Visboard'!$F:$AL,23,FALSE),"""")"
+    'Range("AB2").Select
+    'Selection.AutoFill Destination:=Range("AB2:AB" & LastRow), Type:=xlFillDefault
+    
+    'Paste and Drag down formula for PE/PTL
+    ThisWorkbook.Sheets("Visboard").Range("AL2").Formula = "=IFERROR(VLOOKUP($F2,'[PriorWeek_Working copy.xlsm]Visboard'!$F:$AL,33,FALSE),"""")"
+    'Range("AL2").Select
+    'Selection.AutoFill Destination:=Range("AL2:AL" & LastRow), Type:=xlFillDefault
+    
+
+'Find the last row
+
+    
+
+End Sub
+
+Sub DragDown()
+
+Dim x As Long
+Dim LastRow As Long
+Dim ws As Worksheet
+
+Sheets("Visboard").Activate
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    Sheets("Visboard").Activate
+    
+    ActiveSheet.Range("AC2").Select
+    Selection.AutoFill Destination:=Range("AC2:AC" & LastRow), Type:=xlFillDefault
+    
+    ActiveSheet.Range("AD2").Select
+    Selection.AutoFill Destination:=Range("AD2:AD" & LastRow), Type:=xlFillDefault
+    
+    ActiveSheet.Range("I2").Select
+    Selection.AutoFill Destination:=Range("I2:I" & LastRow), Type:=xlFillDefault
+    
+    ActiveSheet.Range("M2").Select
+    Selection.AutoFill Destination:=Range("M2:M" & LastRow), Type:=xlFillDefault
+
+    ActiveSheet.Range("N2").Select
+    Selection.AutoFill Destination:=Range("N2:N" & LastRow), Type:=xlFillDefault
+    
+    ActiveSheet.Range("AB2").Select
+    Selection.AutoFill Destination:=Range("AB2:AB" & LastRow), Type:=xlFillDefault
+    
+    ActiveSheet.Range("AL2").Select
+    Selection.AutoFill Destination:=Range("AL2:AL" & LastRow), Type:=xlFillDefault
+
+End Sub
+
+Sub BreakForm()
+
+Dim x As Long
+Dim LastRow As Long
+Dim ws As Worksheet
+
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+
+    'Break Formulas
+    Set ws = ThisWorkbook.Sheets("Visboard")
+
+    ws.Range("AB2:AD" & LastRow).Value = ws.Range("AB2:AD" & LastRow).Value
+    ws.Range("I2:I" & LastRow).Value = ws.Range("I2:I" & LastRow).Value
+    ws.Range("M2:N" & LastRow).Value = ws.Range("M2:N" & LastRow).Value
+    ws.Range("AL2:AL" & LastRow).Value = ws.Range("AL2:AL" & LastRow).Value
+
+
+End Sub
+
+Sub FixSophie()
+
+Dim x As Long
+Dim LastRow As Long
+Dim ws As Worksheet
+    
+    
+Sheets("Visboard").Activate
+'Find the last row
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+
+    For x = 2 To LastRow
+        Cells(x, "D").Value = Trim(Cells(x, "D").Value)
+    Next x
+
+    
+    For x = 2 To LastRow
+    
+    If Cells(x, "D").Value = "Namsinh, Sophie" Then
+    
+       ThisWorkbook.Sheets("Visboard").Range("I" & x).Value = "JS"
+    
+    Else
+    End If
+    
+    Next x
+    
+    
+    
+End Sub
+
+Sub PrepPriority()
+
+Application.DisplayAlerts = False
+
+Dim LastRow As Long
+Dim wb As Workbook
+Dim FName As String
+Dim lr
+Dim SecLast As Long
+Dim col As Range
+Dim ws As Worksheet
+    
+'Find the last row
+
+
+
+'FName = ThisWorkbook.Name
+
+
+    'Path to BobCAT Download
+    Set lr = Workbooks.Open("\\SW\data\BGS_SBE_CORE\3 Weekly VISBOARD REPORT\1 Temp_Weekend\Macro Needed Files\Modifications Master Product Line Priority (updated).xlsx")
+    
+    'Unfilter
+    On Error Resume Next
+    ActiveSheet.ShowAllData
+
+    
+    lr.Sheets("Mods Priorities for next Wk").Range("A:A").Copy
+    lr.Sheets("Mods Priorities for next Wk").Range("E1").Insert Shift:=xlRight
+    Range("D:E").UnMerge
+    
+    Worksheets("APS Priority").Copy Before:=Worksheets("Connectivity Priority")
+    Worksheets("APS Priority (2)").Name = "Consolidated"
+    
+    LastRow = Sheets("Interiors Priority").Range("C" & Rows.Count).End(xlUp).Row
+    SecLast = Sheets("Consolidated").Range("B" & Rows.Count).End(xlUp).Row + 1
+    Sheets("Interiors Priority").Range("A3:C" & LastRow).Copy
+    Sheets("Consolidated").Range("A" & SecLast).Select
+    Selection.PasteSpecial
+    
+    LastRow = Sheets("Connectivity Priority").Range("A" & Rows.Count).End(xlUp).Row
+    SecLast = Sheets("Consolidated").Range("C" & Rows.Count).End(xlUp).Row + 1
+    Sheets("Connectivity Priority").Range("A4:C" & LastRow).Copy
+    Sheets("Consolidated").Range("A" & SecLast).Select
+    Selection.PasteSpecial
+    
+    LastRow = Sheets("Avionics Priority").Range("A" & Rows.Count).End(xlUp).Row
+    SecLast = Sheets("Consolidated").Range("C" & Rows.Count).End(xlUp).Row + 1
+    Sheets("Avionics Priority").Range("A3:A" & LastRow).Copy
+    Sheets("Consolidated").Range("A" & SecLast).Select
+    Selection.PasteSpecial
+    Sheets("Avionics Priority").Range("B3:B" & LastRow).Copy
+    Sheets("Consolidated").Range("C" & SecLast).Select
+    Selection.PasteSpecial
+        
+    SecLast = Sheets("Consolidated").Range("C" & Rows.Count).End(xlUp).Row
+    Sheets("Consolidated").Range("A2:C" & SecLast).Select
+    Selection.Font.Name = "Calibri"
+    Selection.Font.Size = 26
+    
+    Range("A:A").Copy
+    Range("D:D").Insert Shift:=xlToRight
+    
+    'Back to old workbook
+    ThisWorkbook.Activate
+    
+    'New Last Row
+    LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    'Paste and Drag down formula for Pgm Top 50 Priority
+    ThisWorkbook.Sheets("Visboard").Range("B2").Formula = "=IFERROR(VLOOKUP(L2,'[Modifications Master Product Line Priority (updated).xlsx]Mods Priorities for next Wk'!$D:$E,2,FALSE),"""")"
+    Range("B2").Select
+    Selection.AutoFill Destination:=Range("B2:B" & LastRow), Type:=xlFillDefault
+    
+    ThisWorkbook.Sheets("Visboard").Range("C2").Formula = "=IFERROR(VLOOKUP(L2,'[Modifications Master Product Line Priority (updated).xlsx]Consolidated'!$c:$d,2,FALSE),"""")"
+    Range("C2").Select
+    Selection.AutoFill Destination:=Range("C2:C" & LastRow), Type:=xlFillDefault
+
+    
+    'Break Formulas
+    'Set ws = ThisWorkbook.Sheets("Visboard")
+
+    'ws.Range("A2:C" & LastRow).Value = ws.Range("AB2:AD" & LastRow).Value
+
+End Sub
+
+Sub ColorIn()
+
+Dim x As Long
+Dim LastRow As Long
+Dim col As Range
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    ThisWorkbook.Sheets("Visboard").Range("R2:AB" & LastRow).Interior.Color = xlNone
+    ThisWorkbook.Sheets("Visboard").Range("F2:F" & LastRow).Font.Color = vbBlack
+    
+    'Delete Existing Conditional Formatting
+    ThisWorkbook.Sheets("Visboard").Range("M2:N" & LastRow).Cells.FormatConditions.Delete
+    ThisWorkbook.Sheets("Visboard").Range("R2:AB" & LastRow).Cells.FormatConditions.Delete
+    ThisWorkbook.Sheets("Visboard").Range("R2:AB" & LastRow).Cells.Interior.ColorIndex = 0
+    
+    
+    'Add "YES" GREEN fill/Bold Conditional Formatting For FullKit/MMD Complete
+    With ThisWorkbook.Sheets("Visboard").Range("M2:N" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="YES"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = RGB(146, 208, 80)
+        .FormatConditions(.FormatConditions.Count).Font.Bold = True
+        
+    End With
+    
+    'Add "NO" Yellow fill/Red Font/Bold Conditional Formatting For FullKit/MMD Complete
+    With ThisWorkbook.Sheets("Visboard").Range("M2:N" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="NO"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = 65535
+        .FormatConditions(.FormatConditions.Count).Font.Color = vbRed
+        .FormatConditions(.FormatConditions.Count).Font.Bold = True
+        
+    End With
+    
+
+    'Add "YES" GREEN fill/Bold Conditional Formatting
+    With ThisWorkbook.Sheets("Visboard").Range("Y2:AA" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="YES"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = RGB(146, 208, 80)
+        .FormatConditions(.FormatConditions.Count).Font.Bold = True
+        
+    End With
+    
+    'Add "NO" Yellow fill/Red Font/Bold Conditional Formatting
+    With ThisWorkbook.Sheets("Visboard").Range("Y2:AA" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="NO"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = 65535
+        .FormatConditions(.FormatConditions.Count).Font.Color = vbRed
+        .FormatConditions(.FormatConditions.Count).Font.Bold = True
+        
+    End With
+
+
+
+    'Add "Complete" Green fill Conditional Formatting
+    With ThisWorkbook.Sheets("Visboard").Range("AB2:AB" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="Complete"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = RGB(198, 224, 180)
+        
+    End With
+
+    'Add "Not Complete" Yellow fill Conditional Formatting
+    With ThisWorkbook.Sheets("Visboard").Range("AB2:AB" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="Not Complete"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = 65535
+        
+    End With
+    
+    
+    'Add "Not Required" Grey fill Conditional Formatting
+    With ThisWorkbook.Sheets("Visboard").Range("AB2:AB" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, Formula1:="Not Required"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = RGB(208, 208, 206)
+        
+    End With
+    
+    
+    
+    With ThisWorkbook.Sheets("Visboard").Range("R2:X" & LastRow)
+        
+        .FormatConditions.Add Type:=xlCellValue, Operator:=xlGreater, Formula1:="0"
+        .FormatConditions(.FormatConditions.Count).Interior.Color = RGB(146, 208, 80)
+        
+    End With
+    
+    'Add Blank Yellow fill Conditional Formatting
+    ThisWorkbook.Sheets("Visboard").Range("R2:X" & LastRow).SpecialCells(xlCellTypeBlanks).Interior.ColorIndex = 6
+    
+    'Color AC and F
+    
+    LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+    
+    ThisWorkbook.Sheets("Visboard").Range("AC2:AD" & LastRow).Interior.Color = xlNone
+    ThisWorkbook.Sheets("Visboard").Range("AC2:AD" & LastRow).Cells.FormatConditions.Delete
+    ThisWorkbook.Sheets("Visboard").Range("F2:F" & LastRow).Font.Color = vbBlack
+    
+
+    
+    For x = 2 To LastRow
+    
+        If ThisWorkbook.Sheets("Visboard").Range("AC" & x).Value = "NEW" Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("F" & x).Font.Color = vbBlue
+            
+        End If
+        
+    Next x
+    
+    For x = 2 To LastRow
+    
+            If ThisWorkbook.Sheets("Visboard").Range("AC" & x).Value <> "" And Range("AC" & x).Value <> "0" And Range("AC" & x).Value <> "NEW" Then
+    
+                ThisWorkbook.Sheets("Visboard").Range("AC" & x).Interior.ColorIndex = 41
+            
+            End If
+            
+    Next x
+            
+    'Color Yellow Mismatch Dates
+    
+    For x = 2 To LastRow
+    
+        If ThisWorkbook.Sheets("Visboard").Range("AM" & x).Value <> True And ThisWorkbook.Sheets("Visboard").Range("AM" & x).Value <> "" Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AE" & x).Interior.Color = vbYellow
+            ThisWorkbook.Sheets("Visboard").Range("AF" & x).Interior.Color = vbYellow
+            
+        End If
+        
+    Next x
+
+    For x = 2 To LastRow
+    
+        If ThisWorkbook.Sheets("Visboard").Range("AC" & x).Value = "Released" Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AC" & x).Interior.ColorIndex = 43
+            
+        End If
+        
+    Next x
+
+    
+End Sub
+
+Sub DragExistingFormulas()
+
+    
+    'Remarketing
+    ThisWorkbook.Sheets("Visboard").Range("H2").Formula = "=IFERROR(VLOOKUP($L2,PMdb_Remarketing!$C:$L,10,FALSE),"")"
+    Range("H2").Select
+    Selection.AutoFill Destination:=Range("H2:H" & LastRow), Type:=xlFillDefault
+    
+    'CauseCode
+    ThisWorkbook.Sheets("Visboard").Range("H2").Formula = "=LEFT(P2,2)"
+    Range("H2").Select
+    Selection.AutoFill Destination:=Range("H2:H" & LastRow), Type:=xlFillDefault
+    
+    'Match
+    ThisWorkbook.Sheets("Visboard").Range("H2").Formula = "=LEFT(P2,2)"
+    Range("H2").Select
+    Selection.AutoFill Destination:=Range("H2:H" & LastRow), Type:=xlFillDefault
+
+
+
+End Sub
+
+Sub YesScreenUpdate()
+
+Application.ScreenUpdating = True
+
+End Sub
+
+Sub ClearCell()
+
+Dim x As Long
+Dim LastRow As Long
+Dim col As Range
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+
+    For x = 2 To LastRow
+        
+        If ThisWorkbook.Sheets("Visboard").Range("M" & x).Value = "0" Or ThisWorkbook.Sheets("Visboard").Range("M" & x).Value = "'" Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("M" & x).ClearContents
+            
+        End If
+        
+        Range("AB" & LastRow).NumberFormat = "General"
+        
+        If ThisWorkbook.Sheets("Visboard").Range("AB" & x).Value = "0" Or ThisWorkbook.Sheets("Visboard").Range("AB" & x).Value = "1/0/1900" Or ThisWorkbook.Sheets("Visboard").Range("AB" & x).Value = "0-Jan-00" Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AB" & x).ClearContents
+            
+        End If
+        
+        If ThisWorkbook.Sheets("Visboard").Range("AC" & x).Value = "0" Or ThisWorkbook.Sheets("Visboard").Range("AC" & x).Value = "'" Then
+            
+            ThisWorkbook.Sheets("Visboard").Range("AC" & x).ClearContents
+            
+        End If
+
+    Next x
+
+End Sub
+
+Sub FilterBorder()
+
+Dim x As Long
+Dim LastRow As Long
+Dim col As Range
+    
+LastRow = ThisWorkbook.Sheets("Visboard").Range("F" & Rows.Count).End(xlUp).Row
+  
+    
+     'ThisWorkbook.Sheets("Visboard").AutoFilterMode = True
+  
+
+    
+    Set Rng = Range("A:AQ" & LastRow)
+    
+    With Rng.Borders
+        .LineStyle = xlContinuous
+        .Color = vbRed
+        .Weight = xlThin
+    End With
+  
+  
+End Sub
